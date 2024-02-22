@@ -39,6 +39,12 @@ if (app.Environment.IsDevelopment())
     app.UseHsts();
     app.UseSwaggerUI();
     app.UseCors("AllowAnyOrigin");
+
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        dbContext.Database.EnsureCreated();
+    }
 }
 
 app.UseHttpsRedirection();

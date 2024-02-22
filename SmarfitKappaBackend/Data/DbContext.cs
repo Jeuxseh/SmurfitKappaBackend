@@ -17,10 +17,9 @@ namespace SmurfitKappaBackend.Data
             {
                 entity.ToTable("User");
 
-                entity.HasKey(e => e.UserId);
-
                 entity.Property(e => e.UserId)
                     .HasColumnName("user_id")
+                    .ValueGeneratedNever()
                     .IsRequired();
 
                 entity.Property(e => e.FirstName)
