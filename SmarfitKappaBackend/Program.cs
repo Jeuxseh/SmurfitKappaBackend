@@ -7,18 +7,18 @@ using SmarfitKappaBackend.Interfaces;
 using SmarfitKappaBackend.Interfaces.SmurfitKappaBackend.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
-string cors = "ConfigurateCors";
 
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(option =>
 {
-    option.AddPolicy(name: cors, builder =>
+    option.AddPolicy("AllowAnyOrigin", builder =>
     {
-        builder.WithMethods("*");
-        builder.WithOrigins("*");
-        builder.WithHeaders("*");
+        builder.WithOrigins("http://localhost:4200", "http://192.168.31.1:4200")
+               .AllowAnyHeader()
+               .AllowCredentials()
+               .AllowAnyMethod();
     });
 });
 
@@ -40,6 +40,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseHsts();
     app.UseSwaggerUI();
+    app.UseCors("AllowAnyOrigin");
 }
 
 app.UseHttpsRedirection();

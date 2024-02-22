@@ -18,13 +18,16 @@ public class UserController : ControllerBase
     [HttpGet]
     public IActionResult Get()
     {
+        Result res = new Result();
         var users = _userService.GetAllUsers();
-        return Ok(users);
+        res.GenericObject = users;
+        return Ok(res);
     }
 
     [HttpGet("{id}")]
     public IActionResult GetById(int id)
     {
+        Result res = new Result();
         var user = _userService.GetUserById(id);
 
         if (user == null)
@@ -32,6 +35,7 @@ public class UserController : ControllerBase
             return NotFound();
         }
 
+        res.GenericObject = user;
         return Ok(user);
     }
 
