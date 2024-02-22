@@ -49,14 +49,14 @@ public class UserController : ControllerBase
     [HttpPut("{id}")]
     public IActionResult Update(int id, User user)
     {
+        Result res = new Result();
         if (id != user.UserId)
         {
             return BadRequest();
         }
 
         _userService.UpdateUser(user);
-
-        return NoContent();
+        return Ok(res);
     }
 
     [HttpDelete("{id}")]
